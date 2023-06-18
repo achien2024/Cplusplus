@@ -1,0 +1,443 @@
+﻿Aarn Chien
+405498016
+
+
+Description:
+For my linked list, I used a doubly linked list. I had my header and tail pointers point to the first and last item of the list. The first item’s next would point to the next item and so on, but the last item’s next would point to nullptr. This is also similar to my previous where the last item points to it’s previous and so on and the first item’s previous points to nullptr. 
+
+
+Pseudocode
+Constructor:
+Sequence::Sequence(const Sequence& other)
+{
+        When I create my copy constructor, I set m_size to 0 to make it 0 and I set HEAD and
+TAIL to null pointer just like I would do for my constructor
+
+
+then I create node pointer and initialize a variable to track position 
+
+
+then use a loop to insert all the values in other to this using my node pointer and position
+tracker
+}
+
+
+Insert(p, x):
+int Sequence::insert(int pos, const ItemType& value)
+{
+        test if position is valid
+                if it is valid, create a new item and create a temporary node pointer
+                set the item’s value to value
+                
+                if it’s the first item, set HEAD and TAIL pointer to that item and set next and prev
+to nullptr
+
+
+else if the position is at 0, aka the HEADER, set the temp pointer to HEAD and
+iterate through the list to set item’s next to that temp and prev to be nullptr
+set the previous item’s PREV to the new item 
+set the HEAD to this item now 
+
+
+else if the position is at the end (the TAIL), then set the temp pointer to TAIL,
+make the new item’s next to NULL, set it’s prev to the temp pointer, and set the
+prev’s next to the new item
+set TAIL to the new item 
+
+
+else if it’s in between, set the item in between
+set next and prev to the appropriate next and prev
+adjust the old item, old prev, and old next to where it needs to point
+
+
+                increment the size
+                
+                return the position 
+        else
+                return -1
+
+
+Insert(x):
+int Sequence::insert(const ItemType& value)
+{
+        use a temporary pointer and a tracker integer to iterate through the linked list
+        once it finds the first value it is less than or equal to, use the previous insert(p, value) 
+and return that 
+}
+
+
+bool Sequence::erase(int pos)
+{
+        if the position is valid, create a temporary pointer set to head
+                
+                if there is only 1 item, set HEAD and TAIL to nullptr and delete the pointer
+
+
+                if it is at the head, set the temporary pointer to HEAD, change the item’s next’s
+prev to nullptr
+                set HEAD to the next item 
+                delete the pointer
+
+
+                if it is at the tail, set the temporary pointer to TAIL, change the item’s prev’s next’s
+to nullptr and point TAIL to prev
+                delete the pointer
+
+
+                iterate through the list using a temporary head pointer and get to that position
+                once you’re at that position, set the prev and next items to it’s appropriate
+pointers
+
+
+decrement the size and return true
+else
+        return true
+
+
+Remove:
+int Sequence::remove(const ItemType& value)
+{
+        create a tracker of number of items removed
+        create a tracker for position 
+        create a temp ptr to head
+        loop through the list and find when it sees that value using the temp ptr
+        if it finds that value, use the position and erase function to delete it
+        increment the tracker
+        restart the loop
+}
+
+
+get:
+bool Sequence::get(int pos, ItemType& value) const
+{
+        make sure pos is valid first 
+        use a temporary pointer that points to head to iterate through the loop
+        use a tracker to keep track of the position starting at 0
+        iterate through the list using a loop and increment the tracker to keep track of the
+position
+        once you reach that position, use the ptr to get that value and put it in value
+        return true if this happens 
+}
+
+
+set:
+bool Sequence::set(int pos, const ItemType& value) 
+{
+        make sure pos is valid
+        use a temporary ptr to iterate through the list and a tracker
+        once it finds that pos by tracker, replace that position with value 
+        set that value the value 
+}
+
+
+find:
+int Sequence::find(const ItemType& value) const
+{
+        initialize a p to -1 in case we cannot find the value
+        initialize another variable to track our position in the loop
+        create a temporary pointer to iterate through the list using a loop and increment our 
+tracker each time
+        once we’ve arrived at that value, make our p equal our position tracker and break
+        return p
+}
+
+
+swap:
+void Sequence::swap(Sequence &other)
+{
+        create a temporary pointer that points to the HEAD
+        have the temporary pointer point to our HEAD
+        have our HEAD point to the other’s HEAD
+        have the other’s HEAD point to the temporary pointer
+
+
+        then have the temporary pointer point to the TAIL
+        have our TAIL point to the other’s TAIL
+        have the other’s TAIL point to the temporary pointer
+        
+        create a temporary size object
+        the temporary object copy m_size
+        have the m_size equal the other’s m_size
+        have the other’s size equal the temporary object
+}
+
+
+Sequence::~Sequence()
+{
+          create a temporary pointer that points to head, iterate through the list m_size - 1 times
+and erase at 0
+}
+
+
+Sequence& Sequence::operator= (const Sequence& rhs)
+{
+        if this is not equal the rhs,
+        create a temporary class that is a copy of rhs
+        swap this with rhs
+        return this
+}
+
+
+int subsequence(const Sequence& seq1, const Sequence& seq2)
+{
+        ensure that seq2 is not empty and seq1 has a bigger size than seq2
+        if it does, iterate through seq1 and seq2 using the get function and compare each
+value with seq2, if it matches, continue on iterating but if it doesn’t, move seq2’s position
+to 0, keep the original position you were at for seq1, and restart comparing
+        once you find the consecutive number, break and return the position
+}
+
+
+void concatReverse(const Sequence& seq1, const Sequence& seq2, Sequence& result)
+{
+         create a temporary sequence class
+        using the get function, iterate through seq1 and get the values from the end to the start
+using the size of it, decrementing it as you go and put it in result
+        then using the get function, iterate through seq2, get the values from end to to the start        
+using it’s size and put it in the temporary sequence class 
+        making result equal the temporary sequence class 
+   /*
+    if (&seq1 != &result && &seq2 != &result)
+    // if the addresses are all different, then we can make result a "new list" by emptying it
+    {
+        while(!result.empty())
+        {
+            result.erase(0);
+        }
+
+
+        while (i < seq1.size())
+        {
+            seq1.get(s1, x);
+            result.insert(i, x);
+            s1--;
+            i++;
+        }
+        while (i < total_size)
+        {
+            seq2.get(s2, x);
+            result.insert(i, x);
+            s2--;
+            i++;
+        }
+    }
+    else if (&seq1 == &result || &seq2 == &result)
+    // if any of the arguments is equal to result,
+    // we should create a temp value that is our
+    {
+    */
+    // this entire commented code was to check if result was equal to sequence or not
+    // my first approach was to erase result and put in values, but this code is much more shorter, but
+    // may take more memory
+}
+
+
+Test Cases
+#include <iostream>
+#include "Sequence.h"
+#include <cassert>
+using namespace std;
+
+
+int main() {
+    cout << "TEST 1" << endl;
+// Testing empty and size
+    Sequence test1;
+    assert(test1.empty());
+    assert(test1.size() == 0);
+    // testing empty and size 
+    cout << endl;
+
+
+    cout << "TEST 2 " << endl;
+// testing insert for invalid and valid positions
+    Sequence test2;
+    assert(test2.insert(1, "z") == -1);
+    // testing for invalid positions
+    assert(test2.insert(0, "z") == 0);
+    // testing insert
+    assert(test2.insert(1, "i") == 1);
+    cout << endl;
+
+
+    cout << "TEST 3 " << endl;
+// testing insert if it sorts lexicographically
+    Sequence test3;
+    assert(test3.insert("b") == 0);
+    assert(test3.insert("d") == 1);
+    assert(test3.insert("c") == 1);
+    assert(test3.insert("a") == 0);
+    test3.dump(); // a b c d
+    cout << endl;
+
+
+    cout << "TEST 4 " << endl;
+// testing insert again for later reasons
+    Sequence test4;
+    assert(test4.insert(0, "i") == 0);
+    assert(test4.insert(1, "want") == 1);
+    assert(test4.insert(2, "to") == 2);
+    assert(test4.insert(3, "sleep") == 3);
+    assert(test4.insert("sleep") == 1);
+    assert(test4.insert("sleep") == 1);
+    assert(test4.insert("sleep") == 1);
+    test4.dump();
+    // I sleep sleep sleep want to sleep
+    cout << endl;
+    assert(test4.erase(1));
+    test4.dump();
+    // I sleep sleep want to sleep
+    cout << endl;
+    assert(test4.remove("sleep") == 3);
+// testing remove
+    test4.dump();
+    // I want to
+    cout << endl;
+
+
+    cout << "TEST 5 " << endl;
+    Sequence test5;
+    assert(test5.insert(0, "i") == 0);
+    assert(test5.insert(1, "am") == 1);
+    assert(test5.insert(2, "getting") == 2);
+    assert(test5.insert(3, "boba") == 3);
+    assert(test5.insert("sleep") == 4);
+    assert(test5.insert("sleep") == 4);
+    assert(test5.insert("sleep") == 4);
+    ItemType x;
+    assert(test5.get(3, x) && x == "boba");
+    assert(test5.get(6, x) && x == "sleep");
+    assert(test5.find("sleep") == 4);
+// testing find 
+    cout << endl;
+    test5.dump();
+    // i am getting boba sleep sleep sleep 
+// testing set
+    assert(test5.set(4, "to"));
+    assert(test5.set(5, "celebrate"));
+    assert(test5.set(6, "life"));
+    assert(test5.find("sleep") == -1);
+    cout << endl;
+    test5.dump();
+    // i am getting boba to celebrate life
+
+
+    cout << "TEST 6" << endl;
+    // Copy Construcor
+// testing the copy constructor to ensure that when i copy, i do a deep copy
+    Sequence test6(test5);
+    assert(test6.insert("am") == 0);
+    test6.dump();
+    // am i am getting boba to celebrate life
+    cout << endl;
+    test5.dump();
+    // i am getting boba to celebrate life
+    cout << endl;
+
+
+    cout << "SWAP TEST" << endl;
+// testing swap that if i change one sequence, it doesnt affect the other 
+    // Swap
+    test3.dump();
+    // a b c d
+    cout << endl;
+    test4.dump();
+    // i want to
+    cout << endl;
+    test3.swap(test4);
+    test3.dump();
+    // i want to
+    cout << endl;
+    test4.dump();
+    // a b c d
+    cout << endl;
+    assert(test4.insert("e") == 4);
+    test4.dump();
+    // a b c d e
+    cout << endl;
+    test3.dump();
+    // i want to 
+    cout << endl;
+
+
+    cout << "ASSIGNMENT OPERATOR" << endl;
+    // Assignment operator 
+// testing assignment operator if it makes a deep copy 
+    test1 = test5;
+    test1.dump();
+    // i am getting boba to celebrate life
+    cout << endl;
+    assert(test1.insert(3, "tiger") == 3);
+    test1.dump();
+    // i am getting tiger boba to celebrate life
+    cout << endl;
+    test5.dump();
+    // i am getting boba to celebrate life
+    cout << endl;
+
+
+    cout << "SUBSEQUENCE" << endl;
+// testing subsequence 
+    // Subsequence
+    Sequence test7;
+    test7.insert(0, "bo");
+    test7.insert(1, "boba");
+    test7.insert(2, "bobo");
+    test7.insert(3, "boba");
+    test7.insert(4, "boba");
+    test7.insert(5, "bo");
+    test7.insert(6, "bo");
+    test7.insert(7, "bo");
+    test7.insert(8, "bo");
+    test7.insert(9, "boba");
+    test7.insert(10, "bobo");
+    test7.insert(11, "boba");
+    test7.insert(12, "bo");
+
+
+    Sequence test8;
+    test8.insert(0, "bo");
+    test8.insert(1, "bo");
+    test8.insert(2, "boba");
+    test8.insert(3, "bobo");
+
+
+    assert(subsequence(test7, test8) == 7);
+
+
+    Sequence test9;
+    assert(subsequence(test9, test8) == -1);
+    assert(subsequence(test8, test9) == -1);
+    cout << endl;
+
+
+    cout << "CONCATREVERSE" << endl;
+// testing concatreverse for empty sequences an existing sequences
+    // concatereverse
+    test2.dump();
+    // z i
+    cout << endl;
+    test3.dump();
+    // i want to
+    cout << endl;
+    Sequence test10;
+    concatReverse(test2, test3, test10);
+    test10.dump();
+    // i z to want i
+    cout << endl;
+
+
+    concatReverse(test2, test3, test2);
+    test2.dump();
+    // i z to want i 
+    cout << endl;
+
+
+    concatReverse(test3, test3, test3);
+    test3.dump();
+    // to want i to want i 
+    cout << endl;
+
+
+    cout << "all test cases passed!" << endl;
+}
