@@ -1,0 +1,65 @@
+﻿Aaron Chien
+405498016
+Description: 
+
+
+For this project, I used a vector data structure consisting of a vector of strings in each index, the index would be the hash bucket value itself and every new word would be inserted into the vector inside the vector. The reason I choose a data structure of vector of vectors is because a vector is a lot faster than a linked list, and initially I was doing a vector of vector string pointers, but working with a vector of vectors was a lot easier and I did not have to deal with deleting and allocating new memory for possibly thousands of space. 
+
+
+For my hash_function algorithm, what I did was that I first sorted the string, then used the hash function library in the C++ library and hashed the string value, then I modular divided that hash value since it would often return a very large value with the max number of buckets to get an index that was in range of the vector. This, however, would cause collision issues that would be addressed when formatting my search function for anagrams. 
+
+
+For my insert algorithm, what I did was that I would use the hash function on the string to be inserted, that value it returns would be the index to insert the word in so I would go to that specific index and insert the word there, meaning that it’s an anagram of that word if another word was in there already and any other words within that vector 
+
+
+For my search algorithm, what I did was that I would take the word and insert it into a new string that would be inserted, and use the hash function to find which specific index of the vector to look at. I would go into that vector in the index and for every word I find, to prevent collision, I would sort the word itself and compare it to the temporary sorted string, if they were the same, callback that word. This was done to prevent collision issues. 
+
+
+Pseudocode:
+int hash_function(string x) const
+        sort the string x
+
+
+        perform the hash function from the C++ library on the string and store it into a value
+called hashValue
+
+
+modulus divide hashValue by the max number of buckets to get a specific index to store
+the value
+
+
+void DictionaryImpl::insert(string word)
+        first remove all non letters in the word
+
+
+        if the word is not empty, perform the hash function on it and store it in an integer called
+bucket
+        
+        go to that bucket, meaning that you will now access a vector, and push back the word
+
+
+void DictionaryImpl::lookup(string letters, void callback(string)) const
+{
+        if the callback or the letters is empty after removing the non letters, return
+
+
+        create a temporary string called permutations that equals letters
+
+
+        use the hash function on permutation and get the index of the vector
+
+
+        sort permutations
+
+
+        iterate through the vector at that specific index and for each word in that vector, place it
+in a temporary string variable and sort it, using that sorted temporary string variable, if
+this equals permutation, then callback that word
+
+
+return after you’re done iterating
+}
+
+
+Note:
+When I ran curl -s -L http://cs.ucla.edu/classes/spring23/cs32/Utilities/p4tester | bash, it would consistently be at least 15 milliseconds but below 20 milliseconds, I noticed that having the #include <functionality>, #include <cctype>, and #include <utility> would improve the performance by small amounts
