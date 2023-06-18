@@ -1,0 +1,28 @@
+﻿Aaron Chien
+405498016
+1e.
+The reason for test case 3 failing is because we are using an iterator to point at the vector, when we to push_back the vector, what the program will do is allocate a new vector with the added values and the old vector copied in, this would create a vector of size 10, but the iterator would be pointing to the old vector instead of the new copy. Once the iterator is done iterating, k would return 5 instead of 10. 
+
+
+3.
+This insert would not work as the insert function in Sequence.h only calls the value, the parameter that is inserted. For si.insert(50), it uses 50 to compare values and find the right position to be inserted, but for sc.insert(Coord(40,10)), it calls Coord(40, 10) but it’s not a comparable class. The compiler does not know how a Coord class compares with another Coord class. You would have to overload this function to work with this specific class by having it call the double r() or double c() for this insert function to work with Coord classes. sc.insert(0, Coord(50, 20)) works because you specify the position to place the class, so no comparisons are being done. 
+
+
+4b
+You would not be able to solve this with one parameter and implemented as a recursive function because the second parameters there to ensure that for every CompoundMenuItem, the “main menu” will be outputted before the sub-menus so the user can easily keep track of where their files are located or which menu location they’re at. Without it, the menus would just output without the parent menu being outputted.
+
+
+5a
+The answer to this is O(N^3) because in the first loop, it iterate throughs it N times, giving O(N). In the nested for loop, for each N, we iterate through the loop N times, making it O(N^2).  In the last nested for loop, it iterates through for each j which is O(N^2), making it O(N^3). The total time complexity is O(N + N^2 + N^3) and taking the highest order, we get O(N^3).
+
+
+5b
+The answer to this is also O(N^3). The first part is the same as part a, which it iterates through N times and so it’s O(N). But in the second for loop, it iterates through the loop for each i of N. The maximum time it will iterate through will be N, so we use that for the “worst case scenario” and the second nested loop is O(N^2). The last nested for loop is the same as for each i of N, it will iterate N times, making it O(N^3), taking the worst case scenario. Therefore, the time complexity is also O(N^3).
+
+
+6a
+The time complexity here is O(N^2) as for the first loop, it iterates through the loop N times, making it O(N), and in the second loop for seq2, it iterates through the loop N times as well assuming that they are the same size, making this O(N). When both call the insert function, the specific insert function they call calls the one with a position number, so the function would also call nodeAtPos. This function has an order of O(0.5N), ignoring constants so O(N). Since this function is nested in the loop, it makes it O(N^2). The final equation is O(N^2 + N^2) = O(2N^2), and we drop constants so the final answer is O(N^2).
+
+
+6b
+The time complexity here is also O(N) as for the first loop, you are visiting each node which takes N iterations. In the second loop, this is also doing the same for seq2 which takes N times. The swap function takes a time complexity of O(1) so we will ignore that. The final equation is O(2N) which becomes O(N). In terms of linked list nodes visited, this is better than the one in part a.
