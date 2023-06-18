@@ -1,0 +1,238 @@
+﻿Aaron Chien
+405498016
+1
+1. inserting 80
+80 is greater than 50, we go to the right branch
+80 is greater than 60, we go to the right branch
+80 is greater than 70, we go to the right branch
+                                                50
+                                  __________/     \_________
+                                20                                60
+                  ____/    \____                            \____
+10                40                                70
+          ____/                                            \____
+30                                                80
+inserting 68
+68 is greater than 50, we go to the right branch
+68 is greater than 60, we go to the right branch 
+68 is smaller than 70, we go to the left branch
+                                                50
+                                  __________/     \_________
+                                20                                60
+                  ____/    \____                            \____
+10                40                                70
+          ____/                                  _____/   \____
+30                                68                80
+        inserting 75
+        75 is greater than 50, we go to the right branch
+        75 is greater than 60, we go to the right branch
+        75 is greater than 70, we go to the right branch 
+        75 is smaller than 80, we go to the left branch 
+                                                50
+                                  __________/     \_________
+                                20                                60
+                  ____/    \____                            \____
+10                40                                70
+          ____/                                  _____/   \____
+30                                68                80
+                                                                                  _____/
+                                                                                75
+
+
+        inserting 15
+        15 is smaller than 50, we go to the left branch
+        15 is smaller than 20, we go to the left branch 
+        15 is greater than 10, we go to the right branch
+                                                50
+                                  __________/     \_________
+                                20                                60
+          __________/    \__________                  \___________
+10                                40                                70
+   \_____                   ____/                                  _____/   \____
+15                30                                68                80
+                                                                                  _____/
+                                                                                75
+        inserting 35
+        35 is smaller than 50, we go to the left branch
+        35 is greater than 20, we go to the right branch
+        35 is smaller than 40, we go to the left branch
+        35 is greater than 30, we go to the right branch 
+50
+                                  __________/     \_________
+                                20                                60
+          __________/    \__________                  \___________
+10                                40                                70
+   \_____                   ____/                                  _____/   \____
+15                30                                68                80
+                                          \_____                                  _____/
+                                                35                                75
+        inserting 26
+        26 is smaller than 50, we go to the left branch
+        26 is greater than 20, we go to the right branch
+        26 is smaller than 40, we go to the left branch
+        26 is smaller than 30, we go to the left branch
+50
+                                  __________/     \_________
+                                20                                60
+          __________/    \__________                  \___________
+10                                40                                70
+   \_____                   ____/                                  _____/   \____
+15                30                                68                80
+                                  _____/  \_____                                  _____/
+                                26                35                                75
+
+
+2. inorder traversal:
+         10 15 20 26 30 35 40 50 60 68 70 75 80
+preorder traversal: 
+50 20 10 15 40 30 26 35 60 70 68 80 75
+postorder traversal:
+15 10 26 35 30 40 20 68 75 80 70 60 50
+
+
+3. resulting BST after deleting 30, then 20 
+50
+                                  __________/     \_________
+                                15                                60
+          __________/    \__________                  \___________
+10                                40                                70
+                              ____/                                  _____/   \____
+                35                                68                80
+                                  _____/                                               _____/
+                                26                                                75
+or
+50
+                                  __________/     \_________
+                                26                                60
+          __________/    \__________                  \___________
+10                                40                                70
+   \_____                   ____/                                  _____/   \____
+15                35                                68                80
+                                                                                        _____/
+                                                                                75
+or
+60
+                                  __________/     \_________
+                                15                                70
+          __________/    \__________          _____/  \____
+10                                40        68                80
+                               ____/                   _____/   
+                30                        75                
+                                  _____/  \_____                                 
+                                26                35
+or        
+60
+                                  __________/     \_________
+                                26                                70
+          __________/    \__________          _____/  \____
+10                                40        68                80
+   \_____                   ____/                          _____/   
+15                30                        75                
+                                             \_____                                 
+                                                35                        
+2 
+1. binary tree with child node pointers and a parent node pointer
+                                45 (parent)
+                            ____/  \____
+                          30                60 (child)
+                     ____/ \____     ____/  \_____
+                   10                  33  50                   74
+        struct Node
+        {
+                int value;
+                Node* left;
+                Node* right;
+        }
+
+
+2. void insert(int value, Node* root)
+{
+        start at the root node pointer, if it is null, allocate a new node and place value into
+it, set the root pointer to point to it and return
+
+
+if value is equal to the root node value, return (we are done)
+
+
+else if value is greater than the root node value, move root to go to the right
+pointer and recursively call the function
+
+
+else if value is less than the root node value, move root to go to the left pointer
+and recursively call the function
+}
+
+
+3
+1. resulting heap
+7
+                                  __________/     \_________
+                                5                                6
+          __________/    \__________          _____/  
+1                                0        3                
+2. 7 5 6 1 0 3
+0 1 2 3 4 5 (index)
+
+
+3. remove 7 and replace it with the last value in the array 
+3 5 6 1 0
+
+
+hash it again
+6 5 3 1 0 
+0 1 2 3 4 (index)
+
+
+4
+1. vector<pair<string, list<int>>>
+searching through a vector, average case O(C)
+searching through a list, average case O(S)
+O(C + S) 
+search through each pair in the vector, find the class string, then search through the list and find the UID 
+
+
+2. map<string, list<int>>
+searching through map, average case O(logC)
+searching through a list, average case O(S)
+O(logC + S) 
+search through each value in the map, find the class string, then search through the list and find the UID
+
+
+3. map<string, set<int>>
+search through map, average case O(logS)
+searching through set, average case O(logC)
+O(logS+ logC) = O(log S*C)
+search through each value in the map, find the class string, then search through the set and find the UID
+
+
+4. unordered_map<string, set<int>>
+search through unordered map, average case O(1)
+search through set, average case O(logS)
+O(1 + logS) = O(logS)
+search through each value in the map, find the class string, then search through the set and find the UID
+
+
+5. unordered_map<string, unordered_set<int>>
+search through unordered map, average case O(1)
+search through unordered set, average case O(1)
+O(1 + 1) = O(1)
+search through each value in the map, find the class string, then search through the unordered set and find the UID
+
+
+6. map<string, set<int>>
+search through map, average case O(logC)
+search through set, worst case O(S)
+O(logC + S)
+search through each value in the map, find the class string, then search through the set and output the UIDs in order (searching through the whole set makes it O(S))
+
+
+7. unordered_map<string, unordered_set<int>>
+search through unordered map, average case O(1)
+search through unordered set, worst case O(S)
+ordering the unordered_set O(SlogS)
+O(1 + S + SlogS) = O(SlogS)
+8. unorderd_map<string, set<int>>
+search through unordered map, worst case O(C)
+search through set, worst case O(logS)
+O(C * logS)
+going to each map bucket’s string, and going through each set, so like a inner loop
